@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Template only — launchd requires absolute paths, so this is not portable
+  as-is. Copy to ~/Library/LaunchAgents/com.<you>.applemusic.snapshot.plist,
+  fill in the placeholders below, then:
+    launchctl load ~/Library/LaunchAgents/com.<you>.applemusic.snapshot.plist
+-->
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.__YOUR_NAME__.applemusic.snapshot</string>
+
+    <key>ProgramArguments</key>
+    <array>
+      <string>__PATH_TO_PYTHON3__</string>
+      <string>__PATH_TO_REPO__/ingest_snapshot.py</string>
+    </array>
+
+    <!-- Run once a day at 09:00 local. Because launchd only fires at the
+         exact scheduled time, a sleeping/offline Mac at 09:00 means that
+         day is skipped entirely (not caught up later). ingest_snapshot.py
+         detects and logs any resulting gap on the next successful run, but
+         cannot backfill it — Music.app only exposes current totals. -->
+    <key>StartCalendarInterval</key>
+    <dict>
+      <key>Hour</key><integer>9</integer>
+      <key>Minute</key><integer>0</integer>
+    </dict>
+
+    <!-- Logs -->
+    <key>StandardOutPath</key>
+    <string>__PATH_TO_REPO__/logs/stdout.log</string>
+    <key>StandardErrorPath</key>
+    <string>__PATH_TO_REPO__/logs/stderr.log</string>
+
+    <!-- Do NOT run at login; do NOT respawn -->
+    <key>RunAtLoad</key><false/>
+    <key>KeepAlive</key><false/>
+  </dict>
+</plist>

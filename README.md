@@ -77,4 +77,4 @@ launchd (daily @ 09:00)
 
 Built in Tableau Public against `daily_usage.csv` / `am_dashboard.sqlite`:
 top tracks, cumulative play history, genre-by-day-of-week, and plays by
-release decade. Published version: _link TBD_.
+release decade. Published version: [Apple Music Dashboard on Tableau Public](https://public.tableau.com/app/profile/barnaby.pinkerton/viz/AppleMusicDashboard_17647709521790/AppleMusicDashboard).
